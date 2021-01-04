@@ -43,15 +43,15 @@ public class PruebaController {
     @ApiOperation(value="Get all comments for one PostId", notes="Get all comments for one PostId")
     @GetMapping("/{id}/comments")
     public ResponseEntity getCommentsFromPost(@PathVariable("id") String id) {
-        logger.info("Init get by Id");
+        logger.info("Init get comments");
         ResponseEntity<List<Comments>> commentsFromPost = service.getCommentsFromPost(id);
         return commentsFromPost;
     }
 
-    @ApiOperation(value="Get all resources", notes="Get all resources")
+    @ApiOperation(value="Get comments filtered", notes="Get comments filtered")
     @GetMapping("/comments/{postId}")
     public ResponseEntity getCommentsFilteredBPostId(@PathVariable("postId") String postId) {
-        logger.info("Init get by Id");
+        logger.info("Init get filtered comments");
         ResponseEntity<List<Comments>> commentsFromPost = service.getCommentsByPostId(postId);
         return commentsFromPost;
     }
@@ -60,31 +60,31 @@ public class PruebaController {
     @ApiOperation(value="Create new resource", notes="Create new resource")
     @PostMapping
     public ResponseEntity insertNew(Posts post){
-        logger.info("Init get by Id");
+        logger.info("Init Insert");
         ResponseEntity<Posts> postsResponseEntity = service.insertPosts(post);
         return postsResponseEntity;
     }
 
-    @ApiOperation(value="Create new resource", notes="Create new resource")
-    @PutMapping("/{id}")
+    @ApiOperation(value="Modify resource", notes="Modify resource")
+    @PostMapping("/{id}")
     public ResponseEntity changePost(@PathVariable("id") String id, @RequestBody Posts posts){
-        logger.info("Init get by Id");
+        logger.info("Init change");
         ResponseEntity<Posts> postsResponseEntity = service.changePostsById(id, posts);
         return postsResponseEntity;
     }
 
-    @ApiOperation(value="Create new resource", notes="Create new resource")
-    @PatchMapping("/{id}")
+    @ApiOperation(value="Partial modify resource", notes="Partial modify resource")
+    @PostMapping("/modify/{id}")
     public ResponseEntity modifyPost(@PathVariable("id") String id, @RequestBody Posts posts){
-        logger.info("Init get by Id");
-        final ResponseEntity responseEntity = modifyPost(id, posts);
+        logger.info("Init modify");
+        ResponseEntity<Posts> responseEntity = service.modifyPost(posts);
         return responseEntity;
     }
 
-    @ApiOperation(value="Create new resource", notes="Create new resource")
-    @DeleteMapping("/{id}")
+    @ApiOperation(value="Delete resource", notes="Delete resource")
+    @PostMapping("/delete/{id}")
     public ResponseEntity deletePost(@PathVariable("id") String id){
-        logger.info("Init get by Id");
+        logger.info("Init delete");
         ResponseEntity<Posts> postsResponseEntity = service.deletePostsById(id);
         return postsResponseEntity;
     }

@@ -5,6 +5,7 @@ import com.rindus.client.RindusClient;
 import com.rindus.entities.Comments;
 import com.rindus.entities.Posts;
 import com.rindus.handlers.Rindus5Exception;
+import javafx.geometry.Pos;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -83,12 +84,12 @@ public class RindusServiceImpl implements RindusService {
 
     @SneakyThrows
     @Override
-    public ResponseEntity<Posts> modifyPosts(Posts posts) {
+    public ResponseEntity<Posts> modifyPost(Posts posts) {
         ResponseEntity<Posts> postsById = this.getPostsById(String.valueOf(posts.getId()));
 
         if (postsById.getBody().getId() != null) {
-            client.modifyPosts(posts);
-            return ResponseEntity.ok(postsById.getBody());
+            HttpEntity<String> comments = client.modifyPosts(posts);
+            return ResponseEntity.ok(mapper.readValue(comments.getBody(), Posts.class));
         } else {
             throw new Rindus5Exception("The Post doesn´t exist");
         }
@@ -100,8 +101,8 @@ public class RindusServiceImpl implements RindusService {
         ResponseEntity<Posts> postsById = this.getPostsById(String.valueOf(id));
 
         if (postsById.getBody().getId() != null) {
-            client.deletePostsById(id);
-            return ResponseEntity.ok(postsById.getBody());
+            HttpEntity<String> comments = client.deletePostsById(id);
+            return ResponseEntity.ok(mapper.readValue(comments.getBody(), Posts.class));
         } else {
             throw new Rindus5Exception("The Post doesn´t exist");
         }

@@ -19,7 +19,7 @@ public interface RindusService {
 
     ResponseEntity<Posts> changePostsById(String id, Posts posts);
 
-    ResponseEntity<Posts> modifyPosts(Posts posts);
-
     ResponseEntity<Posts> deletePostsById(String id);
+
+    ResponseEntity<Posts> modifyPost(Posts posts);
 }

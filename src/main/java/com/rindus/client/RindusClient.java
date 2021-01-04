@@ -18,7 +18,7 @@ public interface RindusClient {
 
     void changePostsById(String id, Posts posts);
 
-    String modifyPosts(Posts posts);
+    HttpEntity<String> modifyPosts(Posts posts);
 
-    void deletePostsById(String id);
+    HttpEntity<String> deletePostsById(String id);
 }
